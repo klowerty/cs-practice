@@ -1,3 +1,4 @@
 a=float(input("Ввидете первое число: "))
 b=float(input("Введите второе число: "))
 print(a+b)
+print(a-b)
