@@ -1,5 +1,4 @@
-a=float(input("Ввидете первое число: "))
-b=float(input("Введите второе число: "))
-print(a+b)
-print(a-b)
-print(a*b)
+a, b = float(input()), float(input())
+def plus(a,b):
+    return a+b
+print(plus(a, b))
