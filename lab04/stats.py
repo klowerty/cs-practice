@@ -10,6 +10,7 @@ def parse_record(line: str) -> dict:
     except ValueError as exc:
         raise ValueError(f"температура не число: {temp!r}") from exc
     return {"city": city, "temperature": temperature, "date": date}
+
 def read_valid(lines: list[str]) -> list[dict]:
     records = []
     for line in lines:
@@ -29,3 +30,9 @@ def average_by_city(records: list[dict]) -> dict:
         total[c] = total.get(c, 0.0) + r["temperature"]
         count[c] = count.get(c, 0) + 1
     return {c: round(total[c] / count[c], 1) for c in total}
+
+def warmest_city(records: list[dict]) -> str:
+    averages = average_by_city(records)
+    if not averages:
+        return ""
+    return min(averages, key=lambda c: (-averages[c], c))
