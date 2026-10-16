@@ -2,9 +2,10 @@ def parse_record(line: str) -> dict:
     parts = line.split(";")
     if len(parts) != 3:
         raise ValueError("не ровно три поля")
-    city, temp, date = parts
+    city, temp, date = (p.strip() for p in parts)
     if not city or not date:
         raise ValueError("пустой город или дата")
+    temp = temp.replace(",", ".")          # запятая → точка
     try:
         temperature = float(temp)
     except ValueError as exc:
