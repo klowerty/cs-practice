@@ -4,18 +4,16 @@ VALID_LEVELS = {"DEBUG", "INFO", "WARNING", "ERROR"}
 
 
 def parse_event(line: str) -> dict:
-    """Строка журнала «время уровень сообщение» -> словарь.
-
-    Негодная строка (меньше трёх частей или незнакомый уровень) -> ValueError.
-    """
     parts = line.split(maxsplit=2)
     if len(parts) != 3:
         raise ValueError(f"bad line: {line!r}")
     time, level, message = parts
     if level not in VALID_LEVELS:
         raise ValueError(f"unknown level: {level!r}")
+    message = message.rstrip("\n")
+    if not message.strip():
+        raise ValueError(f"empty message: {line!r}")
     return {"time": time, "level": level, "message": message}
-
 
 def count_levels(lines) -> dict:
     """Сколько строк каждого уровня. Испорченные - под ключом BROKEN."""
