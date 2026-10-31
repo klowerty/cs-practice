@@ -16,3 +16,14 @@ def deepest_path(paths: list[str]) -> str:
     # ключ: (-вложенность, сам путь) - больше вложенность, при равенстве
     # алфавитно меньший путь идёт первым
     return min(paths, key=lambda p: (-p.count("/"), p))
+
+def human_size(n_bytes: int) -> str:
+    units = ["Б", "КБ", "МБ", "ГБ", "ТБ"]
+    size = float(n_bytes)
+    idx = 0
+    while size >= 1024 and idx < len(units) - 1:
+        size /= 1024
+        idx += 1
+    if idx == 0:
+        return f"{int(size)} Б"
+    return f"{size:.1f} {units[idx]}"
